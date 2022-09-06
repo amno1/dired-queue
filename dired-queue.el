@@ -33,6 +33,8 @@
 
 (defvar dired-queue-mode-map
   (let ((map (make-sparse-keymap)))
+    (define-key map [M-up] #'dired-line-up)
+    (define-key map [M-down] #'dired-line-down)
     (define-key map (kbd "#") #'dired-display-queue)
     (define-key map [remap dired-mark] 'dired--mark-enqueue)
     (define-key map [remap dired-unmark] 'dired--unmark-dequeue)
@@ -64,6 +66,22 @@
   (interactive)
   (dired-other-window
    (apply #'list (concat (buffer-name) "-queue") default-directory dired-queue)))
+
+(defun dired-line-up ()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (save-excursion
+      (forward-line -1)
+      (when (dired-get-file-for-visit)
+        (transpose-lines 1)))))
+
+(defun dired-line-down ()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (save-excursion
+      (forward-line 1)
+      (when (dired-get-file-for-visit)
+        (transpose-lines 1)))))
 
 (defun dired-queue ()
   "Return list of marked files in marking order."
