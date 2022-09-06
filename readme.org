@@ -27,6 +27,20 @@ The queue is stored in buffer-local variable dired-queue as a list of
 strings. You can also act on it programmatically with ordinary Emacs-lisp
 routines.
 
+Dired-queue also defines dired-line-up/down functions, which can be used to
+alternate order of filenames in a Dired buffer bu default bound to M-<up> and
+M-<down> in dired-queue-mode-map.
+
+Those function can be used to either arrange the order of files before marking
+and sending them to the queue, or afterwards in the queue buffer.
+
+The queue buffer itself is an ordinary Dired buffer, so all usual Dired
+operations are allowed there.
+
+Observe that the dired-queue is a buffer-local variable, so the orinial buffer
+and the queue buffer do not share the same variable and value. It would be
+possible to sync them, but I haven't done it.
+
 * Problems
 
 This was a ten minutes prototype to test the idea. There are probably lots of
