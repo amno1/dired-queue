@@ -69,21 +69,26 @@
 
 (defun dired-line-up ()
   (interactive)
-  (let ((inhibit-read-only t))
-    (save-excursion
-      (when (dired-get-file-for-visit)
+  (let ((inhibit-read-only t) acted)
+    (when (dired-get-file-for-visit)
+      (save-excursion
         (forward-line -1)
         (when (dired-get-file-for-visit)
-          (transpose-lines 1))))))
+          (forward-line 1)
+          (transpose-lines 1)
+          (setq acted t)))
+      (if acted (forward-line -1)))))
 
 (defun dired-line-down ()
   (interactive)
-  (let ((inhibit-read-only t))
+  (let ((inhibit-read-only t) acted)
     (when (dired-get-file-for-visit)
       (save-excursion
         (forward-line 1)
         (when (dired-get-file-for-visit)
-          (transpose-lines 1))))))
+          (transpose-lines 1)
+          (setq acted t)))
+      (if acted (forward-line 1)))))
 
 (defun dired-queue ()
   "Return list of marked files in marking order."
