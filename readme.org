@@ -1,0 +1,38 @@
+* About
+
+A small experiment to add a queue to Dired buffers to preserve order in
+which files are marked.
+
+* Install
+
+This is not yet in either Elpa nor Melpa, so currently you will have to either
+clone this repository or just download raw dired-queue.el somewhere where
+your Emacs can find it.
+
+* Usage
+
+Require dired-queue.el.
+
+To enable/disable dired-queue-mode: M-x dired-queue-mode.
+
+You can also add this to dired-mode-hook to auto enable dired-queue-mode when
+dired mode is started:
+
+(add-hook 'dired-mode-hook (lambda () (dired-queue-mode 1)))
+
+To display the queue call M-x dired-queue-display. It will open another dired
+buffer with only enqueued files in the order they were enqeued.
+
+The queue is stored in buffer-local variable dired-queue as a list of
+strings. You can also act on it programmatically with ordinary Emacs-lisp
+routines.
+
+* Problems
+
+This was a ten minutes prototype to test the idea. There are probably lots of
+unkown problems. If you find some, please let me know, or even better, give me a PR.
+
+* License
+
+GPL v3. For details, see the attached [[file:LICENSE][license file]].
+
